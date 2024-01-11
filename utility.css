@@ -47,3 +47,42 @@ align-items: center;
 {
     padding: 10px;
 }
+
+/* General scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px; /* width of the scrollbar */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Handle on active */
+  ::-webkit-scrollbar-thumb:active {
+    background: #666;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #333; /* color of the track */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #444; /* color of the handle */
+    border-radius: 6px; /* roundness of the handle */
+    border: 3px solid #555; /* border around the handle */
+  }
+  
+  /* Corner */
+  ::-webkit-scrollbar-corner {
+    background: #333; /* color of the corner */
+  }
+  
+
+
+
+
+
+
