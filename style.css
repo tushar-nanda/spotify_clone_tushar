@@ -187,9 +187,10 @@ body{
 {
     position: absolute;
     bottom: 0;
-    background-color: #36894c;
-    width: 100%;
+    background-color: #ace5bb;
+    width: 92%;
     padding: 12px;
+    border-radius: 15px;
 }
 
 .songbuttons
@@ -197,4 +198,34 @@ body{
     display: flex;
     justify-content: center;
     gap: 10px;
+}
+
+.songList ul
+{
+    padding: 20px 30px;
+}
+
+.songList ul li{
+    list-style: decimal;
+    display: flex;
+    gap:20px;
+    cursor: pointer;
+    padding: 12px 0;
+    border: 1px solid white;
+    margin:12px 0;
+    padding: 13px;
+    border-radius: 5px;
+}
+
+.playnow
+{
+    display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.playnow span{
+    font-size: 12px;
+    /* width:60px; */
+    padding: 12px;
 }
