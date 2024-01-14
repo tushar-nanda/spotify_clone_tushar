@@ -10,7 +10,7 @@ async function getSongs()
     div.innerHTML = response;
     let as = div.getElementsByTagName('a');
     // console.log(as);
-
+    
     let songs = [] ;
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
@@ -20,28 +20,50 @@ async function getSongs()
         }    
     }
     // console.log(songs)
-
+    
     return songs;
-
+    
 }
+let currentSong = new Audio();
 
+const playMusic =(track)=>{
+    currentSong.src = "/songs/"+track ;
+    currentSong.play();
+}
 async function main()
 {
+
     let songs = await getSongs();
-    console.log(songs)
+    // console.log(songs)
     let songUL = document.querySelector('.songList').getElementsByTagName('ul')[0];
     // console.log(songUL); 
 
     for (const song of songs) {
-        songUL.innerHTML = songUL.innerHTML + `<li>${ song.replaceAll("%20", " ").replaceAll('.mp3', "")  }</li>`;
+        songUL.innerHTML = songUL.innerHTML + ` <li>
+        <img class="invert"  src="music.svg" alt="">
+        <div class="info">
+            <div><h5>  ${song.replaceAll("%20", " ")}</h5></div>
+            <div><h6>Tushar Nanda</h6></div>
+        </div>
+        <div class="playnow">
+            <span>playnow</span>
+            <img class="invert" src="play.svg" alt="">
+        </div>
+    </li>
+    `;
     }
     let audio = new Audio(songs[0]);
-    // audio.play();
+  
 
-    audio.addEventListener('loadeddata' , ()=>{
-        // console.log(audio.duration , audio.currentSrc , audio.currentTime);
-    })
+    Array.from(document.querySelector('.songList').getElementsByTagName('li')).forEach(e => {
+        e.addEventListener("click" ,element=>{
+            const songTitle = e.querySelector('.info h5').textContent.trim();
+            playMusic(songTitle.replaceAll(' ','%20'));
 
+        })
+
+    });
+    
 }
 
 main();
