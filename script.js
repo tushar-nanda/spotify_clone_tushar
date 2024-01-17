@@ -26,15 +26,38 @@ async function getSongs()
 }
 let currentSong = new Audio();
 
-const playMusic =(track)=>{
+const playMusic =(track,pause = false)=>{
     currentSong.src = "/songs/"+track ;
-    currentSong.play();
+    if(!pause)
+    {
+        currentSong.play();
+        play.src = 'pause.svg';
+
+    }
+    document.querySelector(".songinfo").innerHTML = track.replaceAll("%20" , " ");
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
+function secondsToMinutesSeconds(seconds) {
+    if (isNaN(seconds) || seconds < 0) {
+      return "Invalid input";
+    }
+  
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+  
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+  
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
 async function main()
 {
 
     let songs = await getSongs();
     // console.log(songs)
+    play.src = 'play.svg';
+
+    playMusic(songs[0] , true);
     let songUL = document.querySelector('.songList').getElementsByTagName('ul')[0];
     // console.log(songUL); 
 
@@ -63,7 +86,30 @@ async function main()
         })
 
     });
-    
+
+    play.addEventListener('click',()=>{
+        if(currentSong.paused)
+        {
+            currentSong.play();
+            play.src = 'pause.svg';
+        }
+        else
+        {currentSong.pause();
+        play.src= 'play.svg';}
+    })
+
+    //timeupdate
+    currentSong.addEventListener("timeupdate", () => {
+       
+        document.querySelector('.songtime').innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`;
+        document.querySelector('.circle').style.left = (currentSong.currentTime / currentSong.duration)*100+"%"; 
+    });
+    document.querySelector('.seekbar').addEventListener("click" , (e)=>{
+        let percent = e.offsetX*100 / (e.target.getBoundingClientRect().width) ;
+        document.querySelector('.circle').style.left =percent +'%';
+        currentSong.currentTime =  (percent*currentSong.duration )/100;
+    })
+      
 }
 
 main();
