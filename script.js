@@ -124,7 +124,7 @@ async function main()
     previous.addEventListener("click",()=>{
         let ff = currentSong.src.split('/songs/')[1];
         var idx = songs.indexOf(ff);
-        idx = (idx-1)%songs.length;
+        idx = (idx-1+songs.length)%songs.length;
         playMusic(songs[idx]);
     })
     next.addEventListener("click",()=>{
@@ -133,6 +133,13 @@ async function main()
         idx = (idx+1)%songs.length;
         playMusic(songs[idx]);
     })
+
+    //range of volume
+    document.querySelector('.range').getElementsByTagName("input")[0].addEventListener("change", (e) => {
+        console.log(e);
+        currentSong.volume = parseInt(e.target.value) / 100 ;
+    });
+    
       
 }
 
