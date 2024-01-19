@@ -1,9 +1,10 @@
 console.log("hi!")
 let songs;
-async function getSongs()
+let currFolder;
+async function getSongs(folder)
 {
-    let a = await fetch("http://127.0.0.1:5500/songs/");
-    
+    let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
+    currFolder=folder;
     let response = await a.text();
     // console.log(response);
     let div = document.createElement('div');
@@ -16,7 +17,7 @@ async function getSongs()
         const element = as[index];
         if(element.href.endsWith('.mp3'))    
         {
-            songs.push(element.href.split('/songs/')[1]);
+            songs.push(element.href.split(`/${folder}/`)[1]);
         }    
     }
     // console.log(songs)
@@ -27,7 +28,7 @@ async function getSongs()
 let currentSong = new Audio();
 
 const playMusic =(track,pause = false)=>{
-    currentSong.src = "/songs/"+track ;
+    currentSong.src = `/${currFolder}/`+track ;
     if(!pause)
     {
         currentSong.play();
@@ -53,7 +54,7 @@ function secondsToMinutesSeconds(seconds) {
 async function main()
 {
 
-    songs = await getSongs();
+    songs = await getSongs('songs/cs');
     // console.log(songs)
     play.src = 'play.svg';
 
@@ -121,19 +122,25 @@ async function main()
     })
     //previous song
 
-    previous.addEventListener("click",()=>{
-        let ff = currentSong.src.split('/songs/')[1];
-        var idx = songs.indexOf(ff);
-        idx = (idx-1+songs.length)%songs.length;
-        playMusic(songs[idx]);
-    })
-    next.addEventListener("click",()=>{
-        let ff = currentSong.src.split('/songs/')[1];
-        var idx = songs.indexOf(ff);
-        idx = (idx+1)%songs.length;
-        playMusic(songs[idx]);
+    previous.addEventListener("click", () => {
+        currentSong.pause()
+        console.log("Previous clicked")
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        if ((index - 1) >= 0) {
+            playMusic(songs[index - 1])
+        }
     })
 
+    // Add an event listener to next
+    next.addEventListener("click", () => {
+        currentSong.pause()
+        console.log("Next clicked")
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        if ((index + 1) < songs.length) {
+            playMusic(songs[index + 1])
+        }
+    })
     //range of volume
     document.querySelector('.range').getElementsByTagName("input")[0].addEventListener("change", (e) => {
         console.log(e);
