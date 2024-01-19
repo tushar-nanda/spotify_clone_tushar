@@ -221,6 +221,9 @@ body{
     display: flex;
     justify-content: center;
     gap: 10px;
+    position: absolute;
+    left: 47%;
+    bottom: 32%;
 }
 .songList
 {

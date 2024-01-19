@@ -1,5 +1,5 @@
 console.log("hi!")
-
+let songs;
 async function getSongs()
 {
     let a = await fetch("http://127.0.0.1:5500/songs/");
@@ -53,7 +53,7 @@ function secondsToMinutesSeconds(seconds) {
 async function main()
 {
 
-    let songs = await getSongs();
+    songs = await getSongs();
     // console.log(songs)
     play.src = 'play.svg';
 
@@ -122,7 +122,16 @@ async function main()
     //previous song
 
     previous.addEventListener("click",()=>{
-        console.log("clicked");
+        let ff = currentSong.src.split('/songs/')[1];
+        var idx = songs.indexOf(ff);
+        idx = (idx-1)%songs.length;
+        playMusic(songs[idx]);
+    })
+    next.addEventListener("click",()=>{
+        let ff = currentSong.src.split('/songs/')[1];
+        var idx = songs.indexOf(ff);
+        idx = (idx+1)%songs.length;
+        playMusic(songs[idx]);
     })
       
 }
