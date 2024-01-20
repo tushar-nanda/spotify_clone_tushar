@@ -288,6 +288,11 @@ body{
 .volume{
     display: flex;
     justify-content: center;
+    cursor: pointer;
+}
+.range > input
+{
+    cursor: pointer;
 }
 .songinfo{
     width: 250px;
