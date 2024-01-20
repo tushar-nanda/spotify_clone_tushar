@@ -147,7 +147,7 @@ body{
 }
 .card
 {
-    width: 200px;
+    width: 171px;
     /* height: 200px; */
     padding: 10px;
     border-radius: 5px;
@@ -380,6 +380,11 @@ body{
     gap:23px;
     align-items: center;
    }
+
+   .cardContainer
+    {
+        max-height: 56vh;
+    }
    
 
 
