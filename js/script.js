@@ -2,7 +2,7 @@ console.log("hi!");
 let songs;
 let currFolder;
 async function getSongs(folder) {
-  let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
+  let a = await fetch(`https://spotify-clone-tushar.vercel.app/${folder}/`);
   currFolder = folder;
   let response = await a.text();
   // console.log(response);
