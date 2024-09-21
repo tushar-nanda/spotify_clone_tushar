@@ -82,7 +82,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 async function displayAlbums() {
-  let a = await fetch("http://127.0.0.1:5500/songs");
+  let a = await fetch("https://spotify-clone-tushar.vercel.app/songs");
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -92,7 +92,7 @@ async function displayAlbums() {
     e = array[index];
     if (e.href.includes("/songs/")) {
       let folder = e.href.split("/songs/")[1];
-      let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+      let a = await fetch(`https://spotify-clone-tushar.vercel.app/${folder}/info.json`);
       let response = await a.json();
       console.log(response);
       cardContainer = document.querySelector(".cardContainer");
